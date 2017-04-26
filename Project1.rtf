@@ -1,0 +1,490 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1343\cocoasubrtf160
+{\fonttbl\f0\fnil\fcharset0 Consolas;}
+{\colortbl;\red255\green255\blue255;\red0\green128\blue0;\red0\green0\blue255;\red163\green21\blue21;
+\red43\green145\blue175;\red128\green128\blue128;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs19 \cf2 /**\cf0 \
+\cf2 * Riley Fant -- 112936608\cf0 \
+\cf2 * Project #1\cf0 \
+\cf2 * CS 2413, Dr. Sridhar Radhakrishnan\cf0 \
+\cf2 * January 28, 2015\cf0 \
+\cf2 */\cf0 \
+\cf3 #include\cf0  \cf4 <iostream>\cf0 \
+\cf3 using\cf0  \cf3 namespace\cf0  std;\
+\
+\cf2 /*Represents a single user account with appropriate fields*/\cf0 \
+\cf3 class\cf0  \cf5 AccountInfo\cf0  \{\
+	\cf3 friend\cf0  \cf5 ostream\cf0 & operator << (\cf5 ostream\cf0 & s, \cf5 AccountInfo\cf0 * a);\
+\cf3 private\cf0 :\
+	\cf3 char\cf0 * _userLoginName; \cf2 // store the login name of the user \cf0 \
+	\cf3 char\cf0 * _home; \cf2 // home directory of the user\cf0 \
+	\cf3 unsigned\cf0  \cf3 int\cf0  _uid; \cf2 //user identifier\cf0 \
+	\cf3 unsigned\cf0  \cf3 int\cf0  _gid; \cf2 // identifier of user\'92s primary group \cf0 \
+	\cf3 char\cf0 * _password; \cf2 // explained later\cf0 \
+	\cf3 char\cf0 * _shell; \cf2 // shell of the user\cf0 \
+	\cf3 char\cf0 * _gecos; \cf2 // general info of the user\cf0 \
+	\cf2 // other private methods necessary for this class\cf0 \
+\cf3 public\cf0 :\
+	AccountInfo();\cf2 //empty constructor\cf0 \
+	AccountInfo(\cf3 char\cf0 * userLoginName);\cf2 //constructor when only userLoginName is given\cf0 \
+	AccountInfo(\cf3 char\cf0 * userLoginName, \cf3 char\cf0 * home, \cf3 int\cf0  uid, \cf3 int\cf0  gid, \cf3 char\cf0 * password, \cf3 char\cf0 * shell, \cf3 char\cf0 * gecos); \cf2 //full constructor\cf0 \
+	~AccountInfo();\cf2 //destructor\cf0 \
+	\cf2 /*accessors:*/\cf0 \
+	\cf3 char\cf0 * getUserLoginName();\
+	\cf3 char\cf0 * getHome();\
+	\cf3 int\cf0  getUserID();\
+	\cf3 int\cf0  getGID();\
+	\cf3 char\cf0 * getPassword();\
+	\cf3 char\cf0 * getShell();\
+	\cf3 char\cf0 * getGecos();\
+	\cf2 /*mutators*/\cf0 \
+	\cf3 void\cf0  setUserID(\cf3 int\cf0  newUID);\
+	\cf3 void\cf0  setGID(\cf3 int\cf0  newGID);\
+	\cf3 void\cf0  setShell(\cf3 char\cf0 * newShell);\
+\
+\};\
+\
+\cf2 //overrided ostream (<<) operator for AccountInfo\cf0 \
+\cf5 ostream\cf0 & operator << (\cf5 ostream\cf0 & \cf6 s\cf0 , \cf5 AccountInfo\cf0 * \cf6 a\cf0 ) \{\
+	\cf6 s\cf0  << \cf4 "Login: ["\cf0  << \cf6 a\cf0 ->getUserLoginName() << \cf4 "]\\nDirectory: ["\cf0  << \cf6 a\cf0 ->getHome() << \cf4 "]\\nShell: ["\cf0 \
+		<< \cf6 a\cf0 ->getShell() << \cf4 "]\\nGecos: ["\cf0  << \cf6 a\cf0 ->getGecos() << \cf4 "]"\cf0 ;\
+	\cf3 return\cf0  \cf6 s\cf0 ;\
+\}\
+\cf2 /*Definitions of accessors and mutators*/\cf0 \
+\cf3 char\cf0 * \cf5 AccountInfo\cf0 ::getUserLoginName() \{\
+	\cf3 return\cf0  _userLoginName;\
+\}\
+\cf3 char\cf0 * \cf5 AccountInfo\cf0 ::getHome() \{\
+	\cf3 return\cf0  _home;\
+\}\
+\cf3 int\cf0  \cf5 AccountInfo\cf0 ::getUserID() \{\
+	\cf3 return\cf0  _uid;\
+\}\
+\cf3 int\cf0  \cf5 AccountInfo\cf0 ::getGID() \{\
+	\cf3 return\cf0  _gid;\
+\}\
+\cf3 char\cf0 * \cf5 AccountInfo\cf0 ::getPassword() \{\
+	\cf3 return\cf0  _password;\
+\}\
+\cf3 char\cf0 * \cf5 AccountInfo\cf0 ::getShell() \{\
+	\cf3 return\cf0  _shell;\
+\}\
+\cf3 char\cf0 * \cf5 AccountInfo\cf0 ::getGecos() \{\
+	\cf3 return\cf0  _gecos;\
+\}\
+\cf3 void\cf0  \cf5 AccountInfo\cf0 ::setUserID(\cf3 int\cf0  \cf6 newUID\cf0 ) \{\
+	_uid = \cf6 newUID\cf0 ;\
+\}\
+\cf3 void\cf0  \cf5 AccountInfo\cf0 ::setGID(\cf3 int\cf0  \cf6 newGID\cf0 ) \{\
+	_gid = \cf6 newGID\cf0 ;\
+\}\
+\cf3 void\cf0  \cf5 AccountInfo\cf0 ::setShell(\cf3 char\cf0 * \cf6 newShell\cf0 ) \{\
+	_shell = \cf6 newShell\cf0 ;\
+\}\
+\
+\cf2 /*Empty constructor*/\cf0 \
+\cf5 AccountInfo\cf0 ::AccountInfo() \{\
+	\cf2 //empty\cf0 \
+\}\
+\
+\cf2 //empties out the string 'token' of size 'size'\cf0 \
+\cf3 void\cf0  emptyString(\cf3 char\cf0 * \cf6 token\cf0 , \cf3 int\cf0  \cf6 size\cf0 ) \{\
+	\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < \cf6 size\cf0 ; i++)\{\
+		\cf6 token\cf0 [i] = \cf4 '\\0'\cf0 ;\
+	\}\
+\}\
+\
+\cf2 /*Constructor when only the user login name is given*/\cf0 \
+\cf5 AccountInfo\cf0 ::AccountInfo(\cf3 char\cf0 * \cf6 userLoginName\cf0 ) \{\
+	\cf2 //copy over the userLoginName and empty out each other field\cf0 \
+	_userLoginName = \cf3 new\cf0  \cf3 char\cf0 [9];\
+	\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < 9; i++) \{\
+		_userLoginName[i] = \cf6 userLoginName\cf0 [i];\
+	\}\
+	\
+	_home = \cf3 new\cf0  \cf3 char\cf0 [33];\
+	emptyString(_home, 33);\
+\
+	_uid = 0;\
+	_gid = 0;\
+	\
+	_password = \cf3 new\cf0  \cf3 char\cf0 [17];\
+	emptyString(_password, 17);\
+	\
+	_shell = \cf3 new\cf0  \cf3 char\cf0 [17];\
+	emptyString(_shell, 17);\
+	\
+	_gecos = \cf3 new\cf0  \cf3 char\cf0 [65];\
+	emptyString(_gecos, 65);\
+\}\
+\
+\
+\cf2 /*Constructor when all seven fields are given*/\cf0 \
+\cf5 AccountInfo\cf0 ::AccountInfo(\cf3 char\cf0 * \cf6 userLoginName\cf0 , \cf3 char\cf0 * \cf6 home\cf0 , \cf3 int\cf0  \cf6 uid\cf0 , \cf3 int\cf0  \cf6 gid\cf0 , \cf3 char\cf0 * \cf6 password\cf0 , \cf3 char\cf0 * \cf6 shell\cf0 , \cf3 char\cf0 * \cf6 gecos\cf0 ) \{\
+	\cf2 //copy over each field\cf0 \
+	_userLoginName = \cf3 new\cf0  \cf3 char\cf0 [9];\
+	\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < 9; i++) \{\
+		_userLoginName[i] = \cf6 userLoginName\cf0 [i];\
+	\}\
+	\
+	_home = \cf3 new\cf0  \cf3 char\cf0 [33];\
+	emptyString(_home, 33);\
+	\cf3 if\cf0  (\cf6 home\cf0 [0] != \cf4 '\\0'\cf0 ) \{\
+		\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < 33; i++) \{\
+			_home[i] = \cf6 home\cf0 [i];\
+		\}\
+	\}\
+	\
+	_uid = \cf6 uid\cf0 ;\
+	_gid = \cf6 gid\cf0 ;\
+	\
+	_password = \cf3 new\cf0  \cf3 char\cf0 [17];\
+	emptyString(_password, 17);\
+	\cf3 if\cf0  (\cf6 password\cf0 [0] != \cf4 '\\0'\cf0 ) \{\
+		\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < 17; i++) \{\
+			_password[i] = \cf6 password\cf0 [i];\
+		\}\
+	\}\
+\
+	_shell = \cf3 new\cf0  \cf3 char\cf0 [17];\
+	emptyString(_shell, 17);\
+	\cf3 if\cf0  (\cf6 shell\cf0 [0] != \cf4 '\\0'\cf0 ) \{\
+		\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < 17; i++) \{\
+			_shell[i] = \cf6 shell\cf0 [i];\
+		\}\
+	\}\
+	\cf3 else\cf0  \{\
+\
+	\}\
+\
+	_gecos = \cf3 new\cf0  \cf3 char\cf0 [65];\
+	emptyString(_gecos, 65);\
+	\cf3 if\cf0  (\cf6 gecos\cf0 [0] != \cf4 '\\0'\cf0 ) \{\
+		\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < 65; i++) \{\
+			_gecos[i] = \cf6 gecos\cf0 [i];\
+		\}\
+	\}\
+\}\
+\
+\cf2 //Destructor for AccountInfo\cf0 \
+\cf5 AccountInfo\cf0 ::~AccountInfo() \{\
+	\cf3 delete\cf0  _userLoginName, _home, _shell, _gecos, _password;\
+\}\
+\
+\cf2 /*Represents a database of users (AccountInfos) with a limit of 200*/\cf0 \
+\cf3 class\cf0  \cf5 UserDB\cf0  \{\
+	\cf3 friend\cf0  \cf5 ostream\cf0 & operator << (\cf5 ostream\cf0 & s, \cf5 UserDB\cf0 * a);\
+\cf3 private\cf0 :\
+	\cf5 AccountInfo\cf0 * _accounts[200]; \cf2 // store up to 200 accounts \cf0 \
+	\cf3 int\cf0  _size = 0; \cf2 // number of account stored, incremented when addUser() is called\cf0 \
+	\cf3 int\cf0  _nextUid = 1001; \cf2 // next user id to be assigned \cf0 \
+	\cf3 int\cf0  _defaultGid; \cf2 // default group id\cf0 \
+	\cf2 // other private methods necessary for this class\cf0 \
+\cf3 public\cf0 :\
+	UserDB();\cf2 //empty constructor\cf0 \
+	~UserDB();\cf2 //destructor\cf0 \
+	\cf3 void\cf0  addUser(\cf5 AccountInfo\cf0 * newUser); \cf2 // add a new user to // _accounts, also increment _size.\cf0 \
+	\cf2 // print out the following message after the // user is added:\cf0 \
+	\cf2 // \'93[userLoginName] with [uid] is added.\'94\cf0 \
+	\cf3 void\cf0  showUsers(); \cf2 // print out \'93List of users:\'94 at the first\cf0 \
+	\cf2 // line, then print out all user login names\cf0 \
+	\cf2 // (one line each user login name), then print // out the following at the end according to\cf0 \
+	\cf2 // the number of users stored\cf0 \
+	\cf2 // 0 => \'93There\'92s no users found in the system.\'94 // 1 => \'931 user found in the system.\'94\cf0 \
+	\cf2 // k => \'93k users found in the system.\'94 for k>1\cf0 \
+	\cf3 void\cf0  showPasswd(); \cf2 // call the ostream operator\cf0 \
+	\cf3 void\cf0  finger(\cf3 char\cf0 * userLoginName); \cf2 // call ostream operator of AccountInfo class\cf0 \
+	\cf2 // no accessors or mutators needed\cf0 \
+\};\
+\
+\cf2 //empty constructor\cf0 \
+\cf5 UserDB\cf0 ::UserDB() \{\
+	\cf2 //empty\cf0 \
+\}\
+\
+\cf2 //destructor for UserDB\cf0 \
+\cf5 UserDB\cf0 ::~UserDB() \{\
+	\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < _size; i++) \{\
+		\cf3 delete\cf0  _accounts[i];\
+	\}\
+	\cf3 delete\cf0  _accounts;\
+\}\
+\
+\
+\
+\cf2 //overrided ostream (<<) operator for UserDB\cf0 \
+\cf5 ostream\cf0 & operator << (\cf5 ostream\cf0 & \cf6 s\cf0 , \cf5 UserDB\cf0 * \cf6 a\cf0 ) \{\
+	\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < \cf6 a\cf0 ->_size; i++) \{\
+		\cf6 s\cf0  << \cf6 a\cf0 ->_accounts[i] << endl;\
+	\}\
+	\cf3 return\cf0  \cf6 s\cf0 ;\
+\}\
+\
+\cf2 //compares two strings of equal length for equality\cf0 \
+\cf3 bool\cf0  compareStrings(\cf3 char\cf0 * \cf6 s\cf0 , \cf3 char\cf0 * \cf6 p\cf0 , \cf3 int\cf0  \cf6 length\cf0 ) \{\
+	\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < \cf6 length\cf0 ; i++) \{\
+		\cf3 if\cf0  (\cf6 s\cf0 [i] != \cf6 p\cf0 [i])\{\
+			\cf3 return\cf0  \cf3 false\cf0 ;\
+		\}\
+	\}\
+	\cf3 return\cf0  \cf3 true\cf0 ;\
+\}\
+\
+\cf2 //find if there is a user in _accounts with matching userLoginName\cf0 \
+\cf3 void\cf0  \cf5 UserDB\cf0 ::finger(\cf3 char\cf0 * \cf6 userLoginName\cf0 ) \{\
+	\cf3 int\cf0  length1 = 0;\
+	\cf3 int\cf0  length2 = 0;\
+\
+	\cf2 //find the length of the given userLoginName\cf0 \
+	\cf3 while\cf0  (\cf6 userLoginName\cf0 [length1] != \cf4 '\\0'\cf0 ) \{\
+		length1++;\
+	\}\
+\
+	\cf3 bool\cf0  matching = \cf3 false\cf0 ;\cf2 //determines if we have found a match for userLogin name in _accounts yet\cf0 \
+\
+	\cf2 //go through each user in _accounts\cf0 \
+	\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < _size; i++) \{\
+		\cf2 //find the length of _account[i]'s userLoginName\cf0 \
+		\cf3 int\cf0  length2 = 0;\
+		\cf3 while\cf0  (_accounts[i]->getUserLoginName()[length2]) \{\
+			length2++;\
+		\}\
+\
+		\cf2 //string compare _account[i]'s userLoginName and userLoginName if they are the same length\cf0 \
+		\cf3 if\cf0  (length1 == length2) \{\
+			matching = compareStrings(\cf6 userLoginName\cf0 , _accounts[i]->getUserLoginName(), length1);\
+			\cf3 if\cf0  (matching) \{\cf2 //if they match, print the account. Were done here.\cf0 \
+				cout << _accounts[i] << endl;\
+				\cf3 return\cf0 ;\
+			\}\
+			\cf2 //otherwise, go to the next user in _accounts\cf0 \
+		\}\
+	\}\
+	\cf2 //if the no user with userLoginName exists in _accounts, inform the user\cf0 \
+	cout << \cf4 "no user named "\cf0  << \cf6 userLoginName\cf0  << \cf4 " was found"\cf0  << endl;\
+\}\
+\
+\cf3 void\cf0  \cf5 UserDB\cf0 ::addUser(\cf5 AccountInfo\cf0 * \cf6 newUser\cf0 ) \{\
+	\cf2 //fields for the copy of newUser to be added to _accounts\cf0 \
+	\cf3 char\cf0  userLoginName[9]; \cf2 // store the login name of the new user \cf0 \
+	\cf3 char\cf0  home[33]; \cf2 // home directory of the new user\cf0 \
+	\cf3 int\cf0  uid = \cf6 newUser\cf0 ->getUserID(); \cf2 //new user identifier\cf0 \
+	\cf3 int\cf0  gid = \cf6 newUser\cf0 ->getGID(); \cf2 // identifier of new user\'92s primary group \cf0 \
+	\cf3 char\cf0  password[17]; \cf2 // new user's password\cf0 \
+	\cf3 char\cf0  shell[17]; \cf2 // shell of the new user\cf0 \
+	\cf3 char\cf0  gecos[65]; \cf2 // general info of the new user\cf0 \
+\
+	\cf2 //empty out all of the strings\cf0 \
+	emptyString(userLoginName, 9);\
+	emptyString(home, 33);\
+	emptyString(password, 17);\
+	emptyString(shell, 17);\
+	emptyString(gecos, 65);\
+	\cf2 //these are the defaults for home and shell\cf0 \
+	\cf3 char\cf0  defaultHome[] = \cf4 "home /home/"\cf0 ; \cf2 //11\cf0 \
+	\cf3 char\cf0  defaultShell[] = \cf4 "/bin/bash"\cf0 ;\cf2 //9\cf0 \
+\
+	\cf2 //copy all of the newUsers data into new fields\cf0 \
+	\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < 9; i++) \{\
+		userLoginName[i] = \cf6 newUser\cf0 ->getUserLoginName()[i];\
+	\}\
+	\cf2 //if newUser has a home, copy it over\cf0 \
+	\cf3 if\cf0  (\cf6 newUser\cf0 ->getHome()[0] != \cf4 '\\0'\cf0 ) \{\
+		\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < 33; i++) \{\
+			home[i] = \cf6 newUser\cf0 ->getHome()[i];\
+		\}\
+	\}\
+	\cf2 //if newUser has no home, give user the default home ("home /home/userLoginName")\cf0 \
+	\cf3 else\cf0  \{\
+		\cf3 int\cf0  i = 0;\
+		\cf3 for\cf0  (; i < 11; i++) \{\
+			home[i] = defaultHome[i];\
+		\}\
+		\cf2 //append newUser's userLoginName to the default home address\cf0 \
+		\cf3 for\cf0  (\cf3 int\cf0  j = 0; j < 16; j++) \{\
+			home[i] = \cf6 newUser\cf0 ->getUserLoginName()[j];\
+			i++;\
+		\}\
+	\}\
+	\cf2 //if newUser has a password, copy it over to user\cf0 \
+	\cf3 if\cf0  (\cf6 newUser\cf0 ->getPassword()[0] != \cf4 '\\0'\cf0 ) \{\
+		\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < 17; i++) \{\
+			password[i] = \cf6 newUser\cf0 ->getPassword()[i];\
+		\}\
+	\}\
+	\cf2 //if newUser has a shell, copy it over to user\cf0 \
+	\cf3 if\cf0  (\cf6 newUser\cf0 ->getShell()[0] != \cf4 '\\0'\cf0 ) \{\
+		\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < 17; i++) \{\
+			shell[i] = \cf6 newUser\cf0 ->getShell()[i];\
+		\}\
+	\}\
+	\cf2 //if newUser doesnt have a shell, give user the default shell (/bin/bash)\cf0 \
+	\cf3 else\cf0  \{\
+		\cf3 int\cf0  i = 0;\
+		\cf3 for\cf0  (; i < 9; i++) \{\
+			shell[i] = defaultShell[i];\
+		\}\
+	\}\
+	\cf2 //if newUser has a gecos, copy it over to user\cf0 \
+	\cf3 if\cf0  (\cf6 newUser\cf0 ->getGecos()[0] != \cf4 '\\0'\cf0 ) \{\
+		\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < 65; i++) \{\
+			gecos[i] = \cf6 newUser\cf0 ->getGecos()[i];\
+		\}\
+	\}\
+	\cf2 //if the newUser doesnt have a UID, give it the next available default uid\cf0 \
+	\cf3 if\cf0  (\cf6 newUser\cf0 ->getUserID() == 0) \{\
+		uid = _nextUid++;\
+	\}\
+\
+	\cf2 //copy the newUser into a more permanent user\cf0 \
+	\cf5 AccountInfo\cf0 * user = \cf3 new\cf0  \cf5 AccountInfo\cf0 (userLoginName, home, uid, gid, password, shell, gecos);\
+	\cf2 //add the copy of newUser into the array of users\cf0 \
+	_accounts[_size] = user;\
+	cout << \cf4 "["\cf0  << _accounts[_size]->getUserLoginName() << \cf4 "] with ["\cf0  << _accounts[_size]->getUserID() << \cf4 "] is added"\cf0  << endl;\
+\
+	\cf2 //now that the new account is added, we need to increment the size (_size) of _accounts\cf0 \
+	_size++;\
+\}\
+\
+\cf2 //prints out all of the names of the users in _accounts\cf0 \
+\cf3 void\cf0  \cf5 UserDB\cf0 ::showUsers() \{\
+	cout << \cf4 "List of users in the system:\\n"\cf0 ;\
+	\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < _size; i++) \{\
+		cout << _accounts[i]->getUserLoginName() << endl; \cf2 //using overloaded ostream operator for AccountInfo\cf0 \
+	\}\
+	\cf2 //determine what to print out depending on the number of users found in the system\cf0 \
+	\cf3 switch\cf0  (_size) \{\
+		\cf3 case\cf0  0:\
+			cout << \cf4 "There are no users found in the system.\\n"\cf0 ;\
+			\cf3 break\cf0 ;\
+		\cf3 case\cf0  1:\
+			cout << \cf4 "1 user found in the system.\\n"\cf0 ;\
+			\cf3 break\cf0 ;\
+		\cf3 default\cf0 :\
+			cout << _size << \cf4 " users found in the system.\\n"\cf0 ;\
+	\}\
+\}\
+\
+\cf2 //show all of the accounts in the UserDB\cf0 \
+\cf3 void\cf0  \cf5 UserDB\cf0 ::showPasswd() \{\
+	\cf2 //print each field of each account in _accounts[]\cf0 \
+	\cf3 for\cf0  (\cf3 int\cf0  i = 0; i < _size; i++) \{\
+		cout << _accounts[i]->getUserLoginName() << \cf4 ":"\cf0 ;\
+		\cf2 //check to see if the account has a password. print it if it does, print x otherwise\cf0 \
+		\cf3 if\cf0  (_accounts[i]->getPassword()[0] != \cf4 '\\0'\cf0 ) \
+			cout << _accounts[i]->getPassword() << \cf4 ":"\cf0 ;\
+		\cf3 else\cf0  \
+			cout << \cf4 "x"\cf0  << \cf4 ":"\cf0 ;\
+		cout << _accounts[i]->getUserID() << \cf4 ":"\cf0 ;\
+		\cf3 if\cf0  (_accounts[i]->getGID() > 0)\
+			cout << _accounts[i]->getGID() << \cf4 ":"\cf0 ;\
+		cout << _accounts[i]->getGecos() << \cf4 ":"\cf0 ;\
+		cout << _accounts[i]->getHome() << \cf4 ":"\cf0 ;\
+		cout << _accounts[i]->getShell() << endl;\
+	\}\
+\}\
+\
+\cf2 //gets the next string of data before the delimeter\cf0 \
+\cf3 int\cf0  getNextToken(\cf3 char\cf0 * \cf6 buffer\cf0 , \cf3 char\cf0 * \cf6 token\cf0 , \cf3 int\cf0  \cf6 startPos\cf0 , \cf3 int\cf0  \cf6 bufSize\cf0 , \cf3 int\cf0  \cf6 tokenSize\cf0 , \cf3 char\cf0  \cf6 delimeter\cf0 ) \{\
+	\cf3 int\cf0  i, j;\
+	emptyString(\cf6 token\cf0 , \cf6 tokenSize\cf0 );\
+	i = \cf6 startPos\cf0 ;\
+	j = 0;\
+	\cf3 while\cf0  ((\cf6 buffer\cf0 [i] == \cf4 ' '\cf0 ) && (i < \cf6 bufSize\cf0 )) \{\
+		i++; \cf2 //skipblanks\cf0 \
+	\}\
+\
+	\cf3 if\cf0  (i < 256) \{\
+		\cf3 while\cf0  ((\cf6 buffer\cf0 [i] != \cf6 delimeter\cf0 ) && (i < 256) && (j < \cf6 tokenSize\cf0 ))\
+			\cf6 token\cf0 [j++] = \cf6 buffer\cf0 [i++];\
+	\}\
+	\cf3 return\cf0  i;\
+\}\
+\
+\cf2 //main method for manipulating a txt file to create AccountInfo's and a UserDB\cf0 \
+\cf3 int\cf0  main() \{\
+	\cf2 //the temporary account that will be copied over to users\cf0 \
+	\cf5 AccountInfo\cf0 * tempAccount;\
+	\cf5 UserDB\cf0 * users = \cf3 new\cf0  \cf5 UserDB\cf0 ();\
+	\cf3 char\cf0  buffer[256]; \cf2 //used to hold the current line\cf0 \
+	\cf2 //these are all of the field to construct tempAccount\cf0 \
+	\cf3 char\cf0  uloginName[9]; \
+	\cf3 char\cf0  homeDirectory[33];\
+	\cf3 int\cf0  userID;\
+	\cf3 int\cf0  groupID;\
+	\cf3 char\cf0  password[17];\
+	\cf3 char\cf0  shell[17];\
+	\cf3 char\cf0  gecos[65];\
+	\cf3 int\cf0  k;\
+	\cf3 char\cf0  flag[3];\
+	\cf3 char\cf0  IDString[6];\
+	\cf3 char\cf0  command[11];\
+	\cf3 char\cf0  blank = \cf4 ' '\cf0 ;\
+	\cf3 while\cf0  (!cin.eof()) \{\cf2 //while there is another line\cf0 \
+		\cf2 //empty out all of the fields for addUser\cf0 \
+		emptyString(uloginName, 9);\
+		emptyString(password, 17);\
+		emptyString(gecos, 65);\
+		emptyString(homeDirectory, 33);\
+		emptyString(shell, 17);\
+		userID = 0;\
+\
+		\cf2 //get a line and print it out\cf0 \
+		cin.getline(buffer, 256);\
+\
+		\cf2 //determine the type of command the line entails\cf0 \
+		k = getNextToken(buffer, command, 0, 256, 10, blank);\
+		\cf3 switch\cf0  (command[0]) \{\
+		\cf3 case\cf0  \cf4 'a'\cf0 : \{\
+			k = getNextToken(buffer, uloginName, k, 256, 9, blank);\
+			\cf3 while\cf0  (k < 256) \{\
+				k = getNextToken(buffer, flag, k, 256, 3, blank);\
+				\cf3 if\cf0  (k < 256) \{\
+					\cf3 switch\cf0  (flag[1]) \{\
+					\cf3 case\cf0  \cf4 'd'\cf0 : k = getNextToken(buffer, homeDirectory, k, 256, 32, blank);\
+						\cf3 break\cf0 ;\
+					\cf3 case\cf0  \cf4 's'\cf0 : k = getNextToken(buffer, shell, k, 256, 17, blank);\
+						\cf3 break\cf0 ;\
+					\cf3 case\cf0  \cf4 'p'\cf0 : k = getNextToken(buffer, password, k, 256, 17, blank);\
+						\cf3 break\cf0 ;\
+					\cf3 case\cf0  \cf4 'c'\cf0 : k = getNextToken(buffer, gecos, k, 256, 65, \cf4 '-'\cf0 );\
+						\cf3 break\cf0 ;\
+					\cf3 case\cf0  \cf4 'g'\cf0 : k = getNextToken(buffer, IDString, k, 256, 6, blank);\
+						groupID = atoi(IDString);\
+						\cf3 break\cf0 ;\
+					\cf3 case\cf0  \cf4 'u'\cf0 : k = getNextToken(buffer, IDString, k, 256, 6, blank);\
+						userID = atoi(IDString);\
+						\cf3 break\cf0 ;\
+					\cf3 default\cf0 : k = 256; \cf3 break\cf0 ;\
+					\} \cf2 //end Switch(flag[1])\cf0 \
+				\} \cf2 // end while (k < 256)\cf0 \
+			\}\
+			\cf2 //create and add the temporary account to users\cf0 \
+			tempAccount = \cf3 new\cf0  \cf5 AccountInfo\cf0 (uloginName, homeDirectory, userID, groupID, password, shell, gecos);\
+			users->addUser(tempAccount);\
+			\cf3 break\cf0 ;\
+		\} \cf2 //end of adduser\cf0 \
+		\cf3 case\cf0  \cf4 '#'\cf0 : \{\
+			\cf3 break\cf0 ;\
+		\}\cf2 //end of comment\cf0 \
+		\cf3 case\cf0  \cf4 's'\cf0 : \{\
+			\cf3 if\cf0  (command[4] == \cf4 'u'\cf0 ) \{\
+				users->showUsers();\
+			\}\
+			\cf3 else\cf0  \cf3 if\cf0  (command[4] = \cf4 'p'\cf0 ) \{\
+				users->showPasswd();\
+			\}\
+			\cf3 break\cf0 ;\
+		\}\cf2 //end of showuser and showpassword\cf0 \
+		\cf3 case\cf0  \cf4 'f'\cf0 : \{\
+			k = getNextToken(buffer, uloginName, k, 256, 9, blank);\
+			users->finger(uloginName);\
+			\cf3 break\cf0 ;\
+		\}\cf2 //end of finger\cf0 \
+		\cf3 default\cf0 :\
+			cout << \cf4 "Command not found!!"\cf0  << endl;\
+		\}\cf2 //end outer switch\cf0 \
+	\}\cf2 //end while\cf0 \
+\}\cf2 //end main}
